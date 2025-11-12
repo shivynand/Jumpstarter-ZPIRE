@@ -78,69 +78,79 @@ const Header = () => {
   return (
     <header className="bg-white shadow-md">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
-          <Link 
-            to="/" 
-            className="flex items-center"
-            onClick={isLoggedIn ? (e) => {
-              e.preventDefault();
-              if (userType === 'individual') {
-                navigate('/profile');
-              } else {
-                navigate('/care-home');
-              }
-            } : undefined}
-          >
-            <span className="text-2xl font-bold text-blue-600">Aura</span>
-            {userType && (
-              <span className="ml-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full whitespace-nowrap">
-                {userType === 'individual' ? 'Individual' : 'Care Home'}
-              </span>
-            )}
-          </Link>
+        <div className="flex items-center justify-between py-4">
+          {/* Logo and user type badge - positioned more to the left */}
+          <div className="shrink-0 mr-8">
+            <Link 
+              to="/" 
+              className="flex items-center"
+              onClick={isLoggedIn ? (e) => {
+                e.preventDefault();
+                if (userType === 'individual') {
+                  navigate('/profile');
+                } else {
+                  navigate('/care-home');
+                }
+              } : undefined}
+            >
+              <span className="text-2xl font-bold text-blue-600">Aura</span>
+              {userType && (
+                <span className="ml-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full whitespace-nowrap">
+                  {userType === 'individual' ? 'Individual' : 'Care Home'}
+                </span>
+              )}
+            </Link>
+          </div>
           
-          {/* Desktop navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`flex items-center text-lg font-medium ${
-                  location.pathname === item.href || 
-                  (item.href !== '/' && location.pathname.startsWith(item.href))
-                    ? 'text-blue-600'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                <span className="mr-2">{item.icon}</span>
-                {item.name}
-              </Link>
-            ))}
+          {/* Desktop navigation - with equal spacing and integrated logout */}
+          <div className="hidden md:flex grow items-center justify-center">
+            <div className="flex items-center gap-10">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`flex items-center text-lg font-medium ${
+                    location.pathname === item.href || 
+                    (item.href !== '/' && location.pathname.startsWith(item.href))
+                      ? 'text-blue-600'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <span className="mr-2">{item.icon}</span>
+                  {item.name}
+                </Link>
+              ))}
+              
+              {/* Integrated Login/Logout button */}
+              {isLoggedIn && (
+                <Link 
+                  to="/"
+                  className="flex items-center text-lg font-medium text-gray-600 hover:text-gray-900 ml-4"
+                  onClick={() => {
+                    // In a real app, this would call a logout function
+                    setIsLoggedIn(false);
+                    setUserType(null);
+                  }}
+                >
+                  <LogOut size={24} className="mr-2" />
+                  Logout
+                </Link>
+              )}
+            </div>
+          </div>
             
-            {/* Login/Logout button */}
-            {isLoggedIn ? (
-              <Link 
-                to="/"
-                className="flex items-center text-lg font-medium text-gray-600 hover:text-gray-900 ml-4"
-                onClick={() => {
-                  // In a real app, this would call a logout function
-                  setIsLoggedIn(false);
-                  setUserType(null);
-                }}
-              >
-                <LogOut size={24} className="mr-2" />
-                Logout
-              </Link>
-            ) : (
+          {/* Login button for non-logged in users */}
+          {!isLoggedIn && (
+            <div className="hidden md:block">
               <Link 
                 to="/login"
-                className="flex items-center text-lg font-medium text-blue-600 hover:text-blue-800 ml-4"
+                className="flex items-center text-lg font-medium text-blue-600 hover:text-blue-800"
               >
                 <LogIn size={24} className="mr-2" />
                 Login
               </Link>
-            )}
-          </nav>
+            </div>
+          )}
           
           {/* Mobile menu button */}
           <button
