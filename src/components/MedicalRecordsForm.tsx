@@ -21,6 +21,13 @@ interface Medication {
 }
 
 interface MedicalRecordsFormProps {
+  medicalRecords?: {
+    conditions: MedicalCondition[];
+    medications: Medication[];
+    recentLabResults: any;
+    familyHistory: any[];
+    notes: string;
+  };
   onSave: (data: {
     conditions: MedicalCondition[];
     medications: Medication[];
@@ -32,7 +39,7 @@ interface MedicalRecordsFormProps {
   }) => void;
 }
 
-const MedicalRecordsForm = ({ onSave }: MedicalRecordsFormProps) => {
+const MedicalRecordsForm = ({ medicalRecords, onSave }: MedicalRecordsFormProps) => {
   const [conditions, setConditions] = useState<MedicalCondition[]>([
     {
       id: '1',

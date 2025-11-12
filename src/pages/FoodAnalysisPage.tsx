@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Camera, RefreshCw, Check, AlertCircle, Info, Heart } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Camera, RefreshCw, Check, AlertCircle, Info, Heart, Upload } from 'lucide-react';
 
 // Mock user profile and medical records for demonstration
 const mockUserProfile = {
@@ -29,6 +29,7 @@ const FoodAnalysisPage = () => {
   const [photo, setPhoto] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState<any>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const handleTakePhoto = () => {
     // In a real app, this would access the device camera
@@ -96,9 +97,82 @@ const FoodAnalysisPage = () => {
     }, 2000);
   };
   
+  const handleUploadPhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setPhoto(imageUrl);
+      setAnalyzing(true);
+      
+      // Simulate analysis delay
+      setTimeout(() => {
+        setAnalyzing(false);
+        // Use the same mock analysis data for demonstration
+        setAnalysis({
+          foodName: 'Spaghetti Bolognese',
+          calories: 670,
+          protein: 30,
+          carbs: 78,
+          fat: 22,
+          fiber: 5,
+          sodium: 850,
+          potassium: 450,
+          calcium: 120,
+          vitaminD: 2,
+          sugarContent: 8,
+          glycemicIndex: 'Medium-High',
+          personalizedRecommendations: [
+            {
+              type: 'warning',
+              text: 'This pasta dish is high in sodium (850mg), which may affect your hypertension. Your dietary restriction indicates low sodium is needed.',
+              relatedCondition: 'Hypertension'
+            },
+            {
+              type: 'warning',
+              text: 'The carbohydrate content (78g) is high for your diabetes management. Consider a smaller portion or whole grain pasta alternative.',
+              relatedCondition: 'Type 2 Diabetes'
+            },
+            {
+              type: 'positive',
+              text: 'Good protein content (30g) which is beneficial for maintaining muscle mass, especially important with your limited mobility.',
+              relatedCondition: 'Limited mobility'
+            },
+            {
+              type: 'warning',
+              text: 'Low in calcium (120mg) which is important for your osteoporosis. Consider adding a side of dairy or calcium-rich vegetables.',
+              relatedCondition: 'Osteoporosis'
+            },
+            {
+              type: 'info',
+              text: 'Take your Metformin with this meal to reduce gastrointestinal side effects.',
+              relatedCondition: 'Medication'
+            }
+          ],
+          nutritionRanking: [
+            { name: "Protein", value: 30, target: "25-30g", importance: "high", personalized: true },
+            { name: "Fiber", value: 5, target: "10-15g", importance: "high", personalized: true },
+            { name: "Calcium", value: 120, target: "1200mg", importance: "high", personalized: true },
+            { name: "Sodium", value: 850, target: "<500mg", importance: "high", personalized: true },
+            { name: "Carbohydrates", value: 78, target: "45-60g", importance: "high", personalized: true }
+          ],
+          alternativeSuggestions: [
+            "Replace regular pasta with whole grain pasta to lower the glycemic index for better blood sugar management",
+            "Add leafy greens like spinach to increase calcium intake for osteoporosis management",
+            "Use less salt and more herbs in the sauce to reduce sodium content for hypertension management",
+            "Add a side of broccoli or other high-fiber vegetables to increase fiber intake"
+          ]
+        });
+      }, 2000);
+    }
+  };
+  
   const handleReset = () => {
     setPhoto(null);
     setAnalysis(null);
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
   
   return (
@@ -107,18 +181,40 @@ const FoodAnalysisPage = () => {
       
       {!photo ? (
         <div className="bg-white p-6 rounded-xl shadow-md max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6">Take a Photo of Your Meal</h2>
+          <h2 className="text-2xl font-semibold mb-6">Analyze Your Meal</h2>
           <p className="text-lg mb-8">
-            Position your plate in the center of the frame and tap the button below.
+            Take a photo of your meal or upload an existing image for nutritional analysis.
           </p>
           
-          <button 
-            onClick={handleTakePhoto}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-md flex items-center justify-center mx-auto"
-          >
-            <Camera className="mr-2" size={24} />
-            Take Photo
-          </button>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
+            <button 
+              onClick={handleTakePhoto}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-md flex items-center justify-center w-full md:w-auto"
+            >
+              <Camera className="mr-2" size={24} />
+              Take Photo
+            </button>
+            
+            <div className="relative w-full md:w-auto">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleUploadPhoto}
+                ref={fileInputRef}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+              />
+              <button 
+                className="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg shadow-md flex items-center justify-center w-full relative"
+              >
+                <Upload className="mr-2" size={24} />
+                Upload Photo
+              </button>
+            </div>
+          </div>
+          
+          <p className="text-sm text-gray-500 mt-2">
+            For best results, ensure your meal is clearly visible and well-lit.
+          </p>
         </div>
       ) : (
         <div className="bg-white p-6 rounded-xl shadow-md max-w-4xl mx-auto">

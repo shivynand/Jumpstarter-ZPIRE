@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Users, Search, UserPlus, PieChart, 
+  Users, Search, UserPlus, Camera,
   TrendingUp, AlertCircle, Utensils, Clock, 
-  Activity, FileText, Settings, Calendar as CalendarIcon
+  Activity, FileText, Calendar as CalendarIcon
 } from 'lucide-react';
 
 // Import chart components
@@ -118,43 +118,21 @@ const CareHomePage = () => {
       <h1 className="text-4xl font-bold mb-8">Care Home Dashboard</h1>
       
       <div className="bg-white rounded-xl shadow-md overflow-hidden">
-        <div className="flex border-b overflow-x-auto">
-          <TabButton 
-            label="Dashboard" 
-            icon={<PieChart size={20} />}
-            active={activeTab === 'dashboard'} 
-            onClick={() => setActiveTab('dashboard')} 
-          />
-          <TabButton 
-            label="Residents" 
-            icon={<Users size={20} />}
-            active={activeTab === 'residents'} 
-            onClick={() => setActiveTab('residents')} 
-          />
-          <TabButton 
-            label="Meal Planning" 
-            icon={<Utensils size={20} />}
-            active={activeTab === 'meals'} 
-            onClick={() => setActiveTab('meals')} 
-          />
-          <TabButton 
-            label="Nutrition Analytics" 
-            icon={<TrendingUp size={20} />}
-            active={activeTab === 'analytics'} 
-            onClick={() => setActiveTab('analytics')} 
-          />
-          <TabButton 
-            label="Reports" 
-            icon={<FileText size={20} />}
-            active={activeTab === 'reports'} 
-            onClick={() => setActiveTab('reports')} 
-          />
-          <TabButton 
-            label="Settings" 
-            icon={<Settings size={20} />}
-            active={activeTab === 'settings'} 
-            onClick={() => setActiveTab('settings')} 
-          />
+        <div className="flex border-b">
+          <button
+            className={`py-4 px-6 font-medium flex items-center ${activeTab === 'dashboard' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-600 hover:text-gray-900'}`}
+            onClick={() => setActiveTab('dashboard')}
+          >
+            <TrendingUp className="mr-2" size={20} />
+            Dashboard
+          </button>
+          <button
+            className={`py-4 px-6 font-medium flex items-center ${activeTab === 'reports' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-600 hover:text-gray-900'}`}
+            onClick={() => setActiveTab('reports')}
+          >
+            <FileText className="mr-2" size={20} />
+            Reports
+          </button>
         </div>
         
         {activeTab === 'dashboard' && (
@@ -829,6 +807,98 @@ const CareHomePage = () => {
           </div>
         )}
         
+        {activeTab === 'foodAnalysis' && (
+          <div className="p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-semibold">Food Analysis</h2>
+              <Link to="/care-home/food-analysis" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg flex items-center">
+                <Camera size={18} className="mr-2" />
+                Full Analysis Tool
+              </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-white rounded-xl p-5 border shadow-sm">
+                <h3 className="text-xl font-semibold mb-4">Analyze Meal Photos</h3>
+                <p className="text-gray-600 mb-4">
+                  Take photos of meals served to residents to analyze nutritional content and ensure compliance with dietary requirements.
+                </p>
+                <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4">
+                  <h4 className="font-medium text-blue-800 mb-2">Benefits:</h4>
+                  <ul className="space-y-2 text-blue-700">
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span>Verify nutritional content of meals being served</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span>Ensure compliance with dietary restrictions</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">•</span>
+                      <span>Track portion sizes and consistency</span>
+                    </li>
+                  </ul>
+                </div>
+                <Link to="/care-home/food-analysis" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg inline-flex items-center">
+                  <Camera size={18} className="mr-2" />
+                  Analyze Meal
+                </Link>
+              </div>
+              
+              <div className="bg-white rounded-xl p-5 border shadow-sm">
+                <h3 className="text-xl font-semibold mb-4">Recent Analyses</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="w-16 h-16 rounded overflow-hidden shrink-0 mr-3">
+                      <img 
+                        src="https://www.eatalianwithroberto.com/wp-content/uploads/2023/01/Spaghetti-alla-bolognese-enjoy.jpg" 
+                        alt="Spaghetti Bolognese" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-medium">Spaghetti Bolognese</p>
+                      <p className="text-gray-600">670 calories, 30g protein, 78g carbs</p>
+                      <p className="text-sm text-gray-500 mt-1">Analyzed today, 11:30 AM</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="w-16 h-16 rounded overflow-hidden shrink-0 mr-3">
+                      <img 
+                        src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/roast-chicken-b8368c3.jpg" 
+                        alt="Roast Chicken" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-medium">Roast Chicken with Vegetables</p>
+                      <p className="text-gray-600">520 calories, 42g protein, 35g carbs</p>
+                      <p className="text-sm text-gray-500 mt-1">Analyzed yesterday, 5:45 PM</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="w-16 h-16 rounded overflow-hidden shrink-0 mr-3">
+                      <img 
+                        src="https://www.acouplecooks.com/wp-content/uploads/2019/05/Chopped-Salad-001.jpg" 
+                        alt="Garden Salad" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-medium">Garden Salad with Grilled Chicken</p>
+                      <p className="text-gray-600">320 calories, 28g protein, 12g carbs</p>
+                      <p className="text-sm text-gray-500 mt-1">Analyzed yesterday, 12:15 PM</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        
         {activeTab === 'analytics' && (
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
@@ -1016,32 +1086,6 @@ const CareHomePage = () => {
         )}
       </div>
     </div>
-  );
-};
-
-const TabButton = ({ 
-  label, 
-  icon,
-  active, 
-  onClick 
-}: { 
-  label: string; 
-  icon: React.ReactNode;
-  active: boolean; 
-  onClick: () => void;
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      className={`py-4 px-6 text-lg font-medium flex items-center ${
-        active 
-          ? 'text-blue-600 border-b-2 border-blue-600' 
-          : 'text-gray-600 hover:text-gray-800'
-      }`}
-    >
-      {icon && <span className="mr-2">{icon}</span>}
-      {label}
-    </button>
   );
 };
 

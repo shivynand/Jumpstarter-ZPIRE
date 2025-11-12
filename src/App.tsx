@@ -9,6 +9,11 @@ import RecommendationsPage from './pages/RecommendationsPage'
 import CareHomePage from './pages/CareHomePage'
 import CareHomeMealPlanningPage from './pages/CareHomeMealPlanningPage'
 import NutritionAnalyticsPage from './pages/NutritionAnalyticsPage'
+import SignUpPage from './pages/SignUpPage'
+import LoginPage from './pages/LoginPage'
+import CareHomeFoodAnalysisPage from './pages/CareHomeFoodAnalysisPage'
+import SettingsPage from './pages/SettingsPage'
+import CareHomeSettingsPage from './pages/CareHomeSettingsPage'
 
 // Import components
 import Header from './components/layout/Header'
@@ -52,6 +57,11 @@ function App() {
             <Route path="/care-home" element={<CareHomePage />} />
             <Route path="/care-home/meal-planning" element={<CareHomeMealPlanningPage />} />
             <Route path="/care-home/analytics" element={<NutritionAnalyticsPage />} />
+            <Route path="/care-home/food-analysis" element={<CareHomeFoodAnalysisPage />} />
+            <Route path="/care-home/settings" element={<CareHomeSettingsPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Routes>
         </main>
         <Footer />
