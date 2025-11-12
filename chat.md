@@ -2,7 +2,7 @@
 
 ## AI Interaction Overview
 
-During the development of the ZPIRE Nutrition application, I primarily used **Cascade** (an AI coding assistant) to help with various aspects of the development process. Cascade was instrumental in:
+During the development of the Aura application, I primarily used **Cascade** (an AI coding assistant, using Claude 3.7 Sonnet) to help with various aspects of the development process. Cascade was instrumental in:
 
 1. **Code Generation**: Creating React components, pages, and styling with Tailwind CSS
 2. **UI/UX Design**: Designing responsive layouts and user flows for both individual users and care homes
@@ -99,7 +99,7 @@ This prompt resulted in a more streamlined user flow with working login function
 
 ## Project Evolution
 
-The ZPIRE Nutrition application evolved significantly through AI-assisted development:
+The Aura application evolved significantly through AI-assisted development:
 
 1. **From Generic to Role-Based UI**: The project started with a generic UI showing all features to all users. Through AI suggestions, it evolved into a role-based interface that shows only relevant features based on user type and login status.
 

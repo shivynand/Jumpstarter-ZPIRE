@@ -95,7 +95,7 @@ const Footer = () => {
             </div>
           </div>
           <p className="text-gray-500 mt-4 text-center md:text-left text-sm">
-            © {new Date().getFullYear()} ZPIRE Nutrition. All rights reserved.
+            © {new Date().getFullYear()} Aura. All rights reserved.
           </p>
         </div>
       </div>

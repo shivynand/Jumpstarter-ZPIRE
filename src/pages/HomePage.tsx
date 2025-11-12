@@ -7,11 +7,11 @@ const HomePage = () => {
   
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center mb-8">ZPIRE Nutrition</h1>
+      <h1 className="text-4xl font-bold text-center mb-8">Aura</h1>
       
       {userType === 'none' ? (
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6">Welcome! How would you like to use ZPIRE Nutrition?</h2>
+          <h2 className="text-2xl font-semibold mb-6">Welcome! How would you like to use Aura?</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
             <UserTypeButton 

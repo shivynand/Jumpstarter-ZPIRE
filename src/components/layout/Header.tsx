@@ -88,8 +88,7 @@ const Header = () => {
               }
             } : undefined}
           >
-            <span className="text-2xl font-bold text-blue-600">ZPIRE</span>
-            <span className="text-2xl font-medium ml-1">Nutrition</span>
+            <span className="text-2xl font-bold text-blue-600">Aura</span>
             {userType && (
               <span className="ml-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full whitespace-nowrap">
                 {userType === 'individual' ? 'Individual' : 'Care Home'}
