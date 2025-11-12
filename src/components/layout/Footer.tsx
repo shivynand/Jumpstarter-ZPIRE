@@ -8,8 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
             <Link to="/" className="flex items-center">
-              <span className="text-2xl font-bold text-blue-600">ZPIRE</span>
-              <span className="text-2xl font-medium ml-1">Nutrition</span>
+              <span className="text-2xl font-bold text-blue-600">Aura</span>
             </Link>
             <p className="text-gray-600 mt-3 leading-relaxed">
               Empowering elderly individuals and care facilities with personalized nutrition analysis and recommendations for healthier, happier lives.
@@ -71,7 +70,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Mail size={20} className="text-blue-600 mr-2 shrink-0" />
-                <span className="text-gray-600">contact@zpirenutrition.com</span>
+                <span className="text-gray-600">contact@aura.com</span>
               </li>
             </ul>
           </div>

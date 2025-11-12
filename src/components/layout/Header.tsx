@@ -20,7 +20,10 @@ const Header = () => {
         '/recommendations',
         '/care-home',
         '/care-home/meal-planning',
-        '/care-home/analytics'
+        '/care-home/analytics',
+        '/settings',
+        '/care-home/settings',
+        '/care-home/food-analysis'
       ];
       
       const isLoggedIn = loggedInPages.some(page => location.pathname.startsWith(page));
