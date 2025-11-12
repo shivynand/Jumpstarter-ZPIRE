@@ -26,6 +26,10 @@ interface MedicalRecordsFormProps {
     medications: Medication[];
     recentLabResults: any;
     familyHistory: any[];
+    allergies?: string[];
+    recentHospitalizations?: string;
+    primaryPhysician?: string;
+    bloodType?: string;
     notes: string;
   };
   onSave: (data: {
@@ -40,34 +44,38 @@ interface MedicalRecordsFormProps {
 }
 
 const MedicalRecordsForm = ({ medicalRecords, onSave }: MedicalRecordsFormProps) => {
-  const [conditions, setConditions] = useState<MedicalCondition[]>([
-    {
-      id: '1',
-      condition: '',
-      diagnosisDate: '',
-      medications: '',
-      dietaryImplications: '',
-      notes: ''
-    }
-  ]);
+  const [conditions, setConditions] = useState<MedicalCondition[]>(
+    medicalRecords?.conditions || [
+      {
+        id: '1',
+        condition: '',
+        diagnosisDate: '',
+        medications: '',
+        dietaryImplications: '',
+        notes: ''
+      }
+    ]
+  );
   
-  const [medications, setMedications] = useState<Medication[]>([
-    {
-      id: '1',
-      name: '',
-      dosage: '',
-      frequency: '',
-      purpose: '',
-      foodInteractions: '',
-      startDate: ''
-    }
-  ]);
+  const [medications, setMedications] = useState<Medication[]>(
+    medicalRecords?.medications || [
+      {
+        id: '1',
+        name: '',
+        dosage: '',
+        frequency: '',
+        purpose: '',
+        foodInteractions: '',
+        startDate: ''
+      }
+    ]
+  );
   
-  const [allergies, setAllergies] = useState<string[]>(['']);
-  const [recentHospitalizations, setRecentHospitalizations] = useState('');
-  const [primaryPhysician, setPrimaryPhysician] = useState('');
-  const [bloodType, setBloodType] = useState('');
-  const [additionalNotes, setAdditionalNotes] = useState('');
+  const [allergies, setAllergies] = useState<string[]>(medicalRecords?.allergies || ['']);
+  const [recentHospitalizations, setRecentHospitalizations] = useState(medicalRecords?.recentHospitalizations || '');
+  const [primaryPhysician, setPrimaryPhysician] = useState(medicalRecords?.primaryPhysician || '');
+  const [bloodType, setBloodType] = useState(medicalRecords?.bloodType || '');
+  const [additionalNotes, setAdditionalNotes] = useState(medicalRecords?.notes || '');
   
   const handleAddCondition = () => {
     setConditions([

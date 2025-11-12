@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { 
-  PieChart, BarChart, TrendingUp, Download, Filter, 
+  BarChart, TrendingUp, Download, Filter, 
   Calendar, ArrowRight, Users, Utensils, Activity
 } from 'lucide-react';
 
